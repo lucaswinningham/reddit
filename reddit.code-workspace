@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "instructions"
+		},
+		{
+			"path": "1"
+		},
+		{
+			"path": "1/frontend"
+		},
+                {
+                        "path": "1/backend"
+                },
+                {
+                        "path": "2/mailer"
+                }
+	],
+	"settings": {}
+}

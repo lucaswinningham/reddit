@@ -1,0 +1,98 @@
+<div class="row" *ngIf="post.active">
+  <div class="col-12 my-3 py-3 border border-dark rounded">
+    <div class="row d-flex small mb-2">
+      <div class="col text-left text-muted">
+        <span [routerLink]="['/u', post.userName]" appHoverPointer>
+          u/{{ post.userName }}
+        </span>
+        {{ post.createdAt | amTimeAgo }}
+      </div>
+
+      <div [routerLink]="['/r', post.subName]" class="d-flex align-items-center">
+        <div class="col text-center font-weight-bold" appHoverPointer>
+          r/{{ post.subName }}
+        </div>
+      </div>
+
+      <div class="col text-right">
+        {{ post.karma }} points
+      </div>
+    </div>
+
+    <div>
+      <h6>{{ post.title }}</h6>
+    </div>
+
+    <div *ngIf="post.url">
+      <a [href]="post.url" target="_blank" rel="noopener noreferrer">
+        {{ post.url }}
+      </a>
+    </div>
+
+    <div class="container mt-3" *ngIf="post.body">
+      <div class="row">
+        <div class="col-10 offset-1">
+          <p class="text-muted">{{ post.body }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!reply && (session$ | async).isValid" class="small" (click)="newReply()"
+      appHoverPointer>
+      <app-icon [iconName]="'faReply'"></app-icon>
+      Reply
+    </div>
+
+    <div *ngIf="reply" class="container">
+      <div class="row">
+        <div class="col-12">
+          <textarea class="w-100" rows="3" [(ngModel)]="reply.content"></textarea>
+        </div>
+
+        <div class="btn btn-white col-3" (click)="clearReply()" appHoverPointer>
+          Cancel
+        </div>
+
+        <div class="btn btn-primary col-3 ml-auto" (click)="handleReplySubmit()" appHoverPointer>
+          <app-icon *ngIf="!waiting" [iconName]="'faReply'"></app-icon>
+          <app-icon *ngIf="waiting" [iconName]="'faDatabase'"></app-icon>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="(session$ | async).isValid" class="container mt-3">
+      <div class="row justify-content-between">
+        <div class="col-5 btn text-center dnvote-btn" (click)="handleVote(false)" appHoverPointer
+          [class.dnvoted]="dnvoted">
+          <app-icon [iconName]="'faArrowDown'"></app-icon>
+        </div>
+
+        <div class="col-5 btn text-center upvote-btn" (click)="handleVote(true)" appHoverPointer
+          [class.upvoted]="upvoted">
+          <app-icon [iconName]="'faArrowUp'"></app-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- <app-post-menu [showComments]="showComments" (toggleComments)="toggleComments()"></app-post-menu> -->
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-12 btn text-center comments-btn" (click)="toggleComments()" appHoverPointer
+          [class.show-comments]="showComments">
+          <app-icon *ngIf="!commentsWaiting" [iconName]="'faComment'"></app-icon>
+          <app-icon *ngIf="commentsWaiting" [iconName]="'faDatabase'"></app-icon>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="showComments" class="container mt-3">
+      <div class="row">
+        <div class="col-12">
+          <div *ngFor="let comment of comments">
+            <app-post-comment [comment]="comment"></app-post-comment>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

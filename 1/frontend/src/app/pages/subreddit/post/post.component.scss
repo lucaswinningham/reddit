@@ -1,0 +1,42 @@
+@import '~assets/styles/colors';
+
+.comments-btn {
+  color: $white;
+  background: $green;
+
+  &.show-comments:not(:hover) {
+    color: $green;
+    background: $white;
+    border-color: $green;
+  }
+}
+
+.dnvote-btn {
+  color: $blue;
+  border-color: $blue;
+
+  &:hover {
+    color: $white;
+    background: $blue;
+  }
+
+  &.dnvoted {
+    color: $white;
+    background: $blue;
+  }
+}
+
+.upvote-btn {
+  color: $orange;
+  border-color: $orange;
+
+  &:hover {
+    color: $white;
+    background: $orange;
+  }
+
+  &.upvoted {
+    color: $white;
+    background: $orange;
+  }
+}

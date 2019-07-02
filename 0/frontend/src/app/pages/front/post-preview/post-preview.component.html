@@ -1,0 +1,33 @@
+<div class="row" [routerLink]="['/post', post.token]" *ngIf="post.active">
+  <div class="col-12 my-3 py-3 border border-dark rounded pointer">
+    <div class="small mb-2">
+      <span [routerLink]="['/r', post.subName]" class="font-weight-bold">
+        r/{{ post.subName }}
+      </span>
+
+      <span class="text-muted">
+        • Posted by:
+        <span [routerLink]="['/u', post.userName]">u/{{ post.userName }}</span>
+        {{ post.createdAt | amTimeAgo }}
+      </span>
+    </div>
+
+    <div>
+      <h6>{{ post.title }}</h6>
+    </div>
+
+    <div *ngIf="post.url">
+      <a [href]="post.url" target="_blank" rel="noopener noreferrer" appStopPropagation>
+        {{ post.url }}
+      </a>
+    </div>
+
+    <div class="container mt-3" *ngIf="post.body">
+      <div class="row">
+        <div class="col-10 offset-1">
+          <p class="text-muted">{{ post.body }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-12">
+    <form>
+      <div class="form-group mt-3">
+        <input type="password" class="form-control" id="subName" placeholder="Password"
+          [(ngModel)]="password" [ngModelOptions]="{ standalone: true }" />
+      </div>
+
+      <button type="submit" class="btn col-12 text-center float-right"
+        (click)="handleSubmit()" [disabled]="waiting"
+        [ngClass]="waiting ? 'btn-outline-primary' : 'btn-primary'">
+        <span *ngIf="!waiting">Submit</span>
+        <app-icon *ngIf="waiting" [iconName]="'faDatabase'"></app-icon>
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="wrapper">
+  <a href="#" (click)="open(menu)">
+    <span class="d-block my-1"></span>
+    <span class="d-block my-1"></span>
+    <span class="d-block my-1"></span>
+  </a>
+</div>
+
+<ng-template #menu let-modal>
+  <app-modal (close)="close(modal)">
+    <div class="modal-title">
+      My Title
+    </div>
+
+    <div class="modal-body">
+      <a routerLink="/">
+        Some Link
+      </a>
+    </div>
+  </app-modal>
+</ng-template>

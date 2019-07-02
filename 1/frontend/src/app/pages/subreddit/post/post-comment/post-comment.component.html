@@ -1,0 +1,53 @@
+<ng-container *ngIf="comment">
+  <div class="my-2 pl-3 border-left">
+    <span class="text-muted small">
+      <span [routerLink]="['/u', comment.userName]" appHoverPointer>
+        {{ comment.userName }}
+      </span>
+      {{ comment.karma }} points • {{ comment.createdAt | amTimeAgo }}
+    </span>
+
+    <div>
+      {{ comment.content }}
+    </div>
+
+    <div *ngIf="!reply && (session$ | async).isValid" class="small" (click)="newReply()"
+      appHoverPointer>
+      <app-icon [iconName]="'faReply'"></app-icon>
+      Reply
+    </div>
+
+    <div *ngIf="reply" class="container">
+      <div class="row">
+        <div class="col-12">
+          <textarea class="w-100" rows="3" [(ngModel)]="reply.content"></textarea>
+        </div>
+
+        <div class="btn btn-white col-3" (click)="clearReply()" appHoverPointer>
+          Cancel
+        </div>
+
+        <div class="btn btn-primary col-3 ml-auto" (click)="handleReplySubmit()" appHoverPointer>
+          <app-icon *ngIf="!waiting" [iconName]="'faReply'"></app-icon>
+          <app-icon *ngIf="waiting" [iconName]="'faDatabase'"></app-icon>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="(session$ | async).isValid" class="container mt-3">
+      <div class="row justify-content-between">
+        <div class="col-5 btn text-center dnvote-btn" (click)="handleVote(false)" appHoverPointer
+          [class.dnvoted]="dnvoted">
+          <app-icon [iconName]="'faArrowDown'"></app-icon>
+        </div>
+
+        <div class="col-5 btn text-center upvote-btn" (click)="handleVote(true)" appHoverPointer
+          [class.upvoted]="upvoted">
+          <app-icon [iconName]="'faArrowUp'"></app-icon>
+        </div>
+      </div>
+    </div>
+
+    <app-post-comment *ngFor="let child of comment.comments" [comment]="child"></app-post-comment>
+  </div>
+</ng-container>
